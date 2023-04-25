@@ -4,31 +4,30 @@ const router = express.Router()
 
 const serviceList = [
     {
-        "id" : 1,
+       
         "name" : "Web Dev service"
     },
     {
-        "id" : 2,
+        
         "name" : "App dev service"
     },
     {
-        "id" : 3,
+        
         "name" : "AI service"
     },
     {
-        "id" : 4,
+        
         "name" : "ChatGPT service"
     },
     {
-        "id" : 5,
+        
         "name" : "Debugging service"
     },
     {
-        "id" : 6,
+        
         "name" : "Vr service"
     },
     {
-        "id" : 7,
         "name" : "Ar service"
     }
 ]
@@ -40,17 +39,16 @@ router.get('/',(req,res)=>{
 })
 
 router.get('/:id',(req,res)=>{
-    const searchedId = Number(req.params.id);
-    // const result = serviceList.indexOf(searchedId)
-    const result = serviceList.find((service) =>
-    { return service.id === searchedId});
-    if(!result){
-        res.status(200).send("Such a service is not found")
-    }
-    else{
-        res.json(result)
-    }
-})
+    res.status(200).send(`GET with id ${req.params.id}`)
+   })
+
+router.param('id',(req,res,next,id)=>{
+    req.serviceDetails = serviceList[id];
+    // console.log(req.serviceDetails.name)
+    res.status(200).send(`${req.serviceDetails.name}`)
+
+    next();
+})  
 
 
 
